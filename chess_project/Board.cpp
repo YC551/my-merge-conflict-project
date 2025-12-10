@@ -13,7 +13,7 @@ Board::~Board()
 			{
 				delete this->pieces[i][j];
 			}
-			this->pieces[i][j]; = nullptr;
+			this->pieces[i][j] = nullptr;
 		}
 	}
 }
