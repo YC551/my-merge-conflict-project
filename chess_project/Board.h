@@ -11,6 +11,7 @@
 #define CHESS_ROW_LEN 8
 
 
+
 class Piece;
 
 class Board
@@ -29,6 +30,8 @@ class Board
 	
 	//returns pointer to a piece from array
 	Piece* getPieceFromArray(int row, int col) const;
+
+	void printBoard() const;
 
 
 

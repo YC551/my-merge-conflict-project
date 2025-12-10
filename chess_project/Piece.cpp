@@ -7,6 +7,13 @@ Piece::Piece(int row, int col, char type, bool is_black)
     this->type = type;
     this->is_black = is_black;
 }
+
+
+Piece::~Piece()
+{
+    //there is nothing to free
+}
+
 int Piece::getRow() const
 {
     return this->row;
@@ -32,17 +39,9 @@ bool Piece::getIs_black() const
     return this->is_black;
 }
 
-void Piece::setIs_black(bool is_black)
-{
-    this->is_black = is_black;
-}
 
 char Piece::getType() const
 {
     return this->type;
 }
 
-void Piece::setType(char type)
-{
-    this->type = type;
-}

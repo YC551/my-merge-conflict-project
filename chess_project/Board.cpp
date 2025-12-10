@@ -16,6 +16,8 @@ Board::~Board()
 			this->pieces[i][j] = nullptr;
 		}
 	}
+
+	
 }
 
 void Board::changePieceLocation(std::string updateStr)
@@ -69,4 +71,38 @@ int Board::getRowFromString(std::string location)
 Piece* Board::getPieceFromArray(int row, int col) const
 {
 	return this->pieces[ row ][ col ];
+}
+
+void Board::printBoard() const
+{
+	int col = 0, row = 0;
+	
+	//Print the column headers at the top
+	std::cout << "  a b c d e f g h\n";
+
+	// Loop through each row of the board
+	for (row = 0; row < CHESS_ROW_LEN; row++)
+	{
+		//Print the row number on the left (8 to 1)
+		std::cout << CHESS_ROW_LEN - row << " ";
+
+		//Loop through each column in the current row
+		for (col = 0; col < CHESS_COL_LEN; col++)
+		{
+			Piece* piece = this->pieces[ row ][ col ]; //Get the piece at this position
+
+			//if there is a piece we print the type
+			if (piece != nullptr)
+				std::cout << piece->getType() << " ";
+			else
+				std::cout << " # "; //Print a # if the square is empty
+		}
+
+		//Print the row number on the right side
+		std::cout << CHESS_ROW_LEN - row << "\n";
+	}
+
+	//Print the column headers again at the bottom
+	std::cout << "  a b c d e f g h\n";
+
 }
