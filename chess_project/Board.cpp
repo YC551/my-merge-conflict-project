@@ -9,7 +9,11 @@ Board::~Board()
 	{
 		for (j = 0; j < CHESS_COL_LEN; j++)
 		{
-			delete this->pieces[ i ][ j ];
+			if (this->pieces[i][j])
+			{
+				delete this->pieces[i][j];
+			}
+			this->pieces[i][j]; = nullptr;
 		}
 	}
 }
