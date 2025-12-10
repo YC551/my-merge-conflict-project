@@ -24,7 +24,7 @@ bool Rook::isPathClear(Board* board, int destRow, int destCol) const
 			//we check if there isnt a piece in the path
 			for (i = this->row + 1; i < destRow; i++)
 			{
-				if (board->getPieceFromArray(this->col, i) != nullptr)
+				if (board->getPieceFromArray(i, this->col) != nullptr)
 				{
 					return false;
 				}
@@ -39,7 +39,7 @@ bool Rook::isPathClear(Board* board, int destRow, int destCol) const
 			//we check if there isnt a piece in the path
 			for (i = this->row - 1; i > destRow; i--)
 			{
-				if (board->getPieceFromArray(this->col, i) != nullptr)
+				if (board->getPieceFromArray(i, this->col) != nullptr)
 				{
 					return false;
 				}
@@ -57,7 +57,7 @@ bool Rook::isPathClear(Board* board, int destRow, int destCol) const
 			//we check if there isnt a piece in the path
 			for (i = this->col + 1; i < destCol; i++)
 			{
-				if (board->getPieceFromArray(i, this->row) != nullptr)
+				if (board->getPieceFromArray(this->row, i) != nullptr)
 				{
 					return false;
 				}
@@ -72,7 +72,7 @@ bool Rook::isPathClear(Board* board, int destRow, int destCol) const
 			//we check if there isnt a piece in the path
 			for (i = this->col - 1; i > destCol; i--)
 			{
-				if (board->getPieceFromArray(i, this->row) != nullptr)
+				if (board->getPieceFromArray(this->row, i) != nullptr)
 				{
 					return false;
 				}
