@@ -9,7 +9,7 @@ Board::~Board()
 	{
 		for (j = 0; j < CHESS_COL_LEN; j++)
 		{
-			if (this->pieces[i][j])
+			if (this->pieces[i][j] != nullptr)
 			{
 				delete this->pieces[i][j];
 			}
@@ -93,9 +93,13 @@ void Board::printBoard() const
 
 			//if there is a piece we print the type
 			if (piece != nullptr)
+			{
 				std::cout << piece->getType() << " ";
+			}
 			else
+			{
 				std::cout << " # "; //Print a # if the square is empty
+			}
 		}
 
 		//Print the row number on the right side
