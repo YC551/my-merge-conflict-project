@@ -18,6 +18,7 @@ class Board
 {
 	public:
 		Piece* pieces[ CHESS_ROW_LEN ][ CHESS_COL_LEN ];
+		Board();
 		~Board();
 
 	//update piece and array

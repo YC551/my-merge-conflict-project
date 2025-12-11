@@ -124,7 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
-    <ClCompile Include="chess_project.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Rook.cpp" />
   </ItemGroup>
