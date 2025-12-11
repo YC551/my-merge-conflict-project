@@ -1,7 +1,8 @@
 #include "Rook.h"
+#include "King.h"
 
-Rook::Rook(int row, int cow, bool is_black):
-	Piece(row,cow, ROOK_TYPE, is_black)
+Rook::Rook(int row, int col, bool is_black):
+	Piece(row,col, ROOK_TYPE, is_black)
 {
 
 }
@@ -24,6 +25,8 @@ bool Rook::isMoveValid(int destRow, int destCol) const
 	return false;
 
 }
+
+
 
 bool Rook::isPathClear(Board* board, int destRow, int destCol) const
 {

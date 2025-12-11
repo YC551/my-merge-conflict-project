@@ -3,6 +3,13 @@
 #include <iostream>
 #include "Board.h"
 
+
+#define KING_TYPE 'K'
+#define ROOK_TYPE 'R'
+#define QUEEN_TYPE 'Q'
+#define BISHOP_TYPE 'B'
+#define PAWN_TYPE 'P'
+
 class Board;
 
 class Piece
@@ -16,7 +23,7 @@ class Piece
 
 	public:
 		//makes object
-		Piece(int row, int cow, char type, bool is_black);
+		Piece(int row, int col, char type, bool is_black);
 		virtual ~Piece();
 
 		int getRow() const;
