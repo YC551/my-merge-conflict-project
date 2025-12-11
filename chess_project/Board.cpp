@@ -9,11 +9,14 @@ Board::~Board()
 	{
 		for (j = 0; j < CHESS_COL_LEN; j++)
 		{
+			//we only free the place if there is a piece
 			if (this->pieces[i][j] != nullptr)
 			{
-				delete this->pieces[i][j];
+				delete this->pieces[ i ][ j ];
 			}
-			this->pieces[i][j] = nullptr;
+
+			//we make the place on the board empty
+			this->pieces[ i ][ j ] = nullptr;
 		}
 	}
 
