@@ -21,15 +21,10 @@ class King : public Piece
 		//checks if the piece can move by the rules
 		virtual bool isMoveValid(int destRow, int destCol) const;
 
-		//returns true if theres a check 
-		bool isCheck(Board* board) const;
-		//we go in straight lines around the king to see if theres a rook or a queen
-		bool checkUpAndDown(Board* board, int change) const;
-		bool checkRightAndLeft(Board* board, int change) const;
+		
 
 		
 
-		//we go in a cross around the king to see if theres a bishop or a queen
-		bool checkCross(Board* board, int changRow, int changCol) const;
+		
 
 };

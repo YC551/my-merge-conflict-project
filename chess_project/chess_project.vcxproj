@@ -126,12 +126,14 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="King.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoveValidator.cpp" />
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Rook.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="King.h" />
+    <ClInclude Include="MoveValidator.h" />
     <ClInclude Include="Piece.h" />
     <ClInclude Include="Rook.h" />
   </ItemGroup>

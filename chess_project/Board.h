@@ -34,6 +34,8 @@ class Board
 
 	void printBoard() const;
 
+	Piece* findKing(bool findBlack);
+
 
 
 };

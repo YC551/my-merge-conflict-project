@@ -120,3 +120,29 @@ void Board::printBoard() const
 	std::cout << "  a b c d e f g h\n";
 }
 
+Piece* Board::findKing(bool findBlack)
+{
+	int i = 0, j = 0;
+	Piece* piece = nullptr;
+
+	for (i = 0; i < CHESS_ROW_LEN; i++)
+	{
+		for (j = 0; j < CHESS_COL_LEN; j++)
+		{
+			piece = this->getPieceFromArray(i, j);
+			
+			//we check if we reached a piece
+			if (piece != nullptr)
+			{
+				//we check if the piece is a king from a diffrent color
+				if ((piece->getIs_black() == findBlack) && piece->getType() == KING_TYPE)
+				{
+					return piece;
+				}
+			}
+			
+		}
+	}
+
+}
+
