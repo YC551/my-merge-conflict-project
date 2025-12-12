@@ -57,6 +57,10 @@ bool MoveValidator::isCheck(Board* board, bool blackTurn) const
 		return true;
 	}
 
+	if (checkKnight(board, blackTurn))
+	{
+		return true;
+	}
 
 	return false;
 
@@ -196,4 +200,57 @@ bool MoveValidator::checkCross(Board* board, int changeRow, int changeCol, bool 
 
 	//if there are only nulls we return false
 	return false;
+}
+
+
+
+bool MoveValidator::checkKnight(Board* board, bool blackTurn) const
+{
+	//we make an array with all the possible places a kingt can check the king
+	int moves[ POSSIBLE_KNIGHT_MOVES ][ 2 ] =
+	{
+		//up right and left
+		{  2,  1 }, {  2, -1 },
+		//down right and left
+		{ -2,  1 }, { -2, -1 },
+		//right and left up
+		{  1,  2 }, {  1, -2 },
+		//right and left down
+		{ -1,  2 }, { -1, -2 }
+	};
+
+
+	Piece* piece = nullptr;
+	Piece* king = board->findKing(blackTurn);
+	int i = 0, rowOffset = 0, colOffset = 0;
+
+	//we go through the array and get the index of a posaible knight
+	for (i = 0; i < POSSIBLE_KNIGHT_MOVES; i++)
+	{
+		rowOffset = king->getRow() + moves[ i ][ 0 ];
+		colOffset = king->getCol() + moves[ i ] [ 1 ];
+
+		//we check if the index is in range
+		if ((rowOffset >= 0 && rowOffset < CHESS_ROW_LEN) && (colOffset >= 0 && colOffset < CHESS_COL_LEN))
+		{
+			piece = board->getPieceFromArray(rowOffset, colOffset);
+
+			//we check if we reached a piece
+			if (piece != nullptr)
+			{
+				//we check if we reached a knight with a diffrent color
+				if (piece->getType() == KNIGHT_TYPE && piece->getIs_black() != king->getIs_black())
+				{
+					return true;
+				}
+			}
+		}
+	}
+		
+
+
+	return false;
+	
+
+
 }
