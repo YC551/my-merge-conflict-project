@@ -1,7 +1,64 @@
 #include "MoveValidator.h"
 
 
-bool MoveValidator::isCheck(Board* board, bool blackTurn) const
+int MoveValidator::validateMove(Board* board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack)
+{
+	
+	if (isSourceEmptyOrWrongColor(board, srcRow, srcCol, currentPlayerBlack))
+	{
+		return ERROR_2; //if the piece we want to move is a diffrent color
+	}
+
+	if (isDestinationOccupiedByPlayer(board, destRow, destCol, currentPlayerBlack))
+	{
+		return ERROR_3; //if the place we go to has a piece with the same color
+	}
+
+
+
+}
+
+bool MoveValidator::isSourceEmptyOrWrongColor(Board* board, int srcRow, int srcCol, bool currentPlayerBlack)
+{
+	Piece* piece = board->getPieceFromArray(srcRow, srcCol);
+
+	if (piece != nullptr)
+	{
+		if (piece->getIs_black() == currentPlayerBlack)
+		{
+			return false;
+		}
+	}
+
+	//if the piece we want to move has the same color we return true
+	return true;
+}
+
+bool MoveValidator::isDestinationOccupiedByPlayer(Board* board, int destRow, int destCol, bool currentPlayerBlack)
+{
+	Piece* piece = board->getPieceFromArray(destRow, destCol);
+
+	//we check if there is a piece
+	if (piece == nullptr)
+	{
+		return false;
+	}
+
+	//we check if the piece is the same color
+	if (piece->getIs_black() != currentPlayerBlack)
+	{
+		return false;
+	}
+	
+	//if theres a piece with the same color we return true
+	return true;
+
+
+}
+
+
+
+bool MoveValidator::isCheck(Board* board, bool blackTurn)
 {
 	//we go in lines from the king to see if we reach a rook, queen or a bishop
 	//we go around the king and check if theres a knight
@@ -67,7 +124,7 @@ bool MoveValidator::isCheck(Board* board, bool blackTurn) const
 }
 
 
-bool MoveValidator::checkUpAndDown(Board* board, int change, bool blackTurn) const
+bool MoveValidator::checkUpAndDown(Board* board, int change, bool blackTurn) 
 {
 	int i = 0;
 	Piece* piece = nullptr;
@@ -107,7 +164,8 @@ bool MoveValidator::checkUpAndDown(Board* board, int change, bool blackTurn) con
 
 }
 
-bool MoveValidator::checkRightAndLeft(Board* board, int change, bool blackTurn) const
+
+bool MoveValidator::checkRightAndLeft(Board* board, int change, bool blackTurn) 
 {
 	int i = 0;
 	Piece* piece = nullptr;
@@ -145,7 +203,8 @@ bool MoveValidator::checkRightAndLeft(Board* board, int change, bool blackTurn) 
 	return false;
 }
 
-bool MoveValidator::checkCross(Board* board, int changeRow, int changeCol, bool blackTurn) const
+
+bool MoveValidator::checkCross(Board* board, int changeRow, int changeCol, bool blackTurn) 
 {
 	bool firstStep = true;
 	int i = 0, j = 0;
@@ -203,8 +262,7 @@ bool MoveValidator::checkCross(Board* board, int changeRow, int changeCol, bool 
 }
 
 
-
-bool MoveValidator::checkKnight(Board* board, bool blackTurn) const
+bool MoveValidator::checkKnight(Board* board, bool blackTurn) 
 {
 	//we make an array with all the possible places a kingt can check the king
 	int moves[ POSSIBLE_KNIGHT_MOVES ][ 2 ] =

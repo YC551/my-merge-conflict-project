@@ -9,7 +9,7 @@
 #define QUEEN_TYPE 'Q'
 #define BISHOP_TYPE 'B'
 #define PAWN_TYPE 'P'
-#define KINGHT_TYPE 'N'
+#define KNIGHT_TYPE 'N'
 #define POSSIBLE_KNIGHT_MOVES 8
 
 class Board;
