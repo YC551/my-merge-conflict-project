@@ -26,7 +26,8 @@ class MoveValidator
 		//return true if there is a piece with the same color in the destination - code 3
 		static bool isDestinationOccupiedByPlayer(Board* board, int destRow, int destCol, bool currentPlayerBlack);
 
-
+		//we check if the player causes a check on himself
+		static bool selfCheck(Board* board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack);
 
 
 

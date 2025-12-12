@@ -16,6 +16,8 @@ int MoveValidator::validateMove(Board* board, int srcRow, int srcCol, int destRo
 
 
 
+
+
 }
 
 bool MoveValidator::isSourceEmptyOrWrongColor(Board* board, int srcRow, int srcCol, bool currentPlayerBlack)
@@ -55,6 +57,58 @@ bool MoveValidator::isDestinationOccupiedByPlayer(Board* board, int destRow, int
 
 
 }
+
+bool MoveValidator::selfCheck(Board* board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack)
+{
+	//we get the piece at the destination and at the source
+	Piece* tempDesPiece = board->getPieceFromArray(destRow, destCol);
+	Piece* srcPiece = board->getPieceFromArray(srcRow, srcCol);
+	bool checkHappened = false;
+
+	//update current source piece and array tempereroly
+	srcPiece->setCol(destCol);
+	srcPiece->setRow(destRow);
+	board->pieces[ srcRow ][ srcCol ] = nullptr;
+	board->pieces[ destRow ][ destCol ] = srcPiece;
+
+	//we see if the current player is checked
+	checkHappened = isCheck(board, currentPlayerBlack);
+
+	//we revert the move to the piece and reset the array
+	srcPiece->setCol(srcCol);
+	srcPiece->setRow(srcRow);
+	board->pieces[ srcRow][ srcCol ] = srcPiece;
+	board->pieces[ destRow ][ destCol ] = tempDesPiece;
+
+	return checkHappened;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
