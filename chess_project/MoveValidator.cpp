@@ -4,9 +4,19 @@
 int MoveValidator::validateMove(Board* board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack)
 {
 	
+	if (areIndexOutOfBounds(srcRow, srcCol) || areIndexOutOfBounds(destRow, destCol))
+	{
+		return ERROR_5; //if the indexes are not valid
+	}
 	if (isSourceEmptyOrWrongColor(board, srcRow, srcCol, currentPlayerBlack))
 	{
 		return ERROR_2; //if the piece we want to move is a diffrent color
+	}
+
+
+	if (isSourceEqualDestination(srcRow, srcCol, destRow, destCol))
+	{
+		return ERROR_7; //if the piece didnt move
 	}
 
 	if (isDestinationOccupiedByPlayer(board, destRow, destCol, currentPlayerBlack))
@@ -14,7 +24,28 @@ int MoveValidator::validateMove(Board* board, int srcRow, int srcCol, int destRo
 		return ERROR_3; //if the place we go to has a piece with the same color
 	}
 
+	if (isPieceMoveInvalid(board, srcRow, srcCol, destRow, destCol))
+	{
+		return ERROR_6; //if the path is not clear or if the piece moves in a invalid way
+	}
 
+
+
+	if(makesCheck(board, srcRow, srcCol, destRow, destCol, currentPlayerBlack))
+	{
+		return ERROR_4; //if the move gives the player a self check
+	}
+
+
+	//if the move is valid we see if it makes a check on the other player
+	if (makesCheck(board, srcRow, srcCol, destRow, destCol, !currentPlayerBlack))
+	{
+		return ERROR_1; //if the other player is checked
+	}
+
+
+	//if the move is valid and didnt check the other player 
+	return ERROR_0;
 
 
 
@@ -58,7 +89,7 @@ bool MoveValidator::isDestinationOccupiedByPlayer(Board* board, int destRow, int
 
 }
 
-bool MoveValidator::selfCheck(Board* board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack)
+bool MoveValidator::makesCheck(Board* board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack)
 {
 	//we get the piece at the destination and at the source
 	Piece* tempDesPiece = board->getPieceFromArray(destRow, destCol);
@@ -84,32 +115,39 @@ bool MoveValidator::selfCheck(Board* board, int srcRow, int srcCol, int destRow,
 
 }
 
+bool MoveValidator::areIndexOutOfBounds(int row, int col)
+{
+	if (row < 0 || row >= CHESS_ROW_LEN)
+	{
+		return true;
+	}
 
+	if (col < 0 || col >= CHESS_COL_LEN)
+	{
+		return true;
+	}
+	
+	//if col or row is not valid
+	return false;
+}
 
+bool MoveValidator::isPieceMoveInvalid(Board* board, int srcRow, int srcCol, int destRow, int destCol)
+{
+	Piece* piece = board->getPieceFromArray(srcRow, srcCol);
 
+	return !piece->isPathClear(board, destRow, destCol);
+}
 
+bool MoveValidator::isSourceEqualDestination(int srcRow, int srcCol, int destRow, int destCol)
+{
+	if (destRow == srcRow && destCol == srcCol)
+	{
+		return true;
+	}
 
+	return false;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 bool MoveValidator::isCheck(Board* board, bool blackTurn)

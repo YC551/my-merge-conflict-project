@@ -3,6 +3,8 @@
 #include "King.h"
 #include "Rook.h"
 #include "Piece.h"
+#define ERROR_0 0
+#define ERROR_1 1
 #define ERROR_2 2
 #define ERROR_3 3
 #define ERROR_4 4
@@ -27,11 +29,16 @@ class MoveValidator
 		static bool isDestinationOccupiedByPlayer(Board* board, int destRow, int destCol, bool currentPlayerBlack);
 
 		//we check if the player causes a check on himself
-		static bool selfCheck(Board* board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack);
+		static bool makesCheck(Board* board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack);
 
+		//checks if any index is out of array
+		static bool areIndexOutOfBounds(int row, int col);
 
+		//check if the path is valid for the piece
+		static bool isPieceMoveInvalid(Board* board, int srcRow, int srcCol, int destRow, int destCol);
 
-
+		//we check if the piece moved
+		static bool isSourceEqualDestination(int srcRow, int srcCol, int destRow, int destCol);
 
 
 
