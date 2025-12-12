@@ -105,6 +105,12 @@ void Board::printBoard() const
 			if (piece != nullptr)
 			{
 				symbol = piece->getType();
+
+				//if black print lower
+				if (piece->getIs_black())
+				{
+					symbol = std::tolower(symbol);
+				}
 			}
 			else
 			{
@@ -119,6 +125,7 @@ void Board::printBoard() const
 
 	std::cout << "  a b c d e f g h\n";
 }
+
 
 Piece* Board::findKing(bool findBlack)
 {
