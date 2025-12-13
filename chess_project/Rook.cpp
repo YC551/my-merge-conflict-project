@@ -28,7 +28,7 @@ bool Rook::isMoveValid(int destRow, int destCol) const
 
 
 
-bool Rook::isPathClear(Board* board, int destRow, int destCol) const
+bool Rook::isPathClear(const Board& board, int destRow, int destCol) const
 {
 	int i = 0;
 
@@ -47,7 +47,7 @@ bool Rook::isPathClear(Board* board, int destRow, int destCol) const
 			//we check if there isnt a piece in the path
 			for (i = destRow + 1; i < this->row; i++)// start after destRow, go up to row-1
 			{
-				if (board->getPieceFromArray(i, this->col) != nullptr)
+				if (board.getPieceFromArray(i, this->col) != nullptr)
 				{
 					return false;
 				}
@@ -62,7 +62,7 @@ bool Rook::isPathClear(Board* board, int destRow, int destCol) const
 			//we check if there isnt a piece in the path
 			for (i = this->row + 1; i < destRow; i++)// start after row, go up to destRow-1
 			{
-				if (board->getPieceFromArray(i, this->col) != nullptr)
+				if (board.getPieceFromArray(i, this->col) != nullptr)
 				{
 					return false;
 				}
@@ -80,7 +80,7 @@ bool Rook::isPathClear(Board* board, int destRow, int destCol) const
 			//we check if there isnt a piece in the path
 			for (i = destCol + 1; i < this->col; i++)// start after destCol, go up to col-1
 			{
-				if (board->getPieceFromArray(this->row, i) != nullptr)
+				if (board.getPieceFromArray(this->row, i) != nullptr)
 				{
 					return false;
 				}
@@ -95,7 +95,7 @@ bool Rook::isPathClear(Board* board, int destRow, int destCol) const
 			//we check if there isnt a piece in the path
 			for (i = this->col + 1; i < destCol; i++)// start after col, go up to destCol-1
 			{
-				if (board->getPieceFromArray(this->row, i) != nullptr)
+				if (board.getPieceFromArray(this->row, i) != nullptr)
 				{
 					return false;
 				}

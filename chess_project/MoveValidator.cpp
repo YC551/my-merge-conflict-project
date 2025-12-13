@@ -1,7 +1,7 @@
 #include "MoveValidator.h"
 
 
-int MoveValidator::validateMove(Board* board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack)
+int MoveValidator::validateMove(Board& board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack)
 {
 	
 	if (areIndexOutOfBounds(srcRow, srcCol) || areIndexOutOfBounds(destRow, destCol))
@@ -51,9 +51,9 @@ int MoveValidator::validateMove(Board* board, int srcRow, int srcCol, int destRo
 
 }
 
-bool MoveValidator::isSourceEmptyOrWrongColor(Board* board, int srcRow, int srcCol, bool currentPlayerBlack)
+bool MoveValidator::isSourceEmptyOrWrongColor(const Board& board, int srcRow, int srcCol, bool currentPlayerBlack)
 {
-	Piece* piece = board->getPieceFromArray(srcRow, srcCol);
+	Piece* piece = board.getPieceFromArray(srcRow, srcCol);
 
 	if (piece != nullptr)
 	{
@@ -67,9 +67,9 @@ bool MoveValidator::isSourceEmptyOrWrongColor(Board* board, int srcRow, int srcC
 	return true;
 }
 
-bool MoveValidator::isDestinationOccupiedByPlayer(Board* board, int destRow, int destCol, bool currentPlayerBlack)
+bool MoveValidator::isDestinationOccupiedByPlayer(const Board& board, int destRow, int destCol, bool currentPlayerBlack)
 {
-	Piece* piece = board->getPieceFromArray(destRow, destCol);
+	Piece* piece = board.getPieceFromArray(destRow, destCol);
 
 	//we check if there is a piece
 	if (piece == nullptr)
@@ -89,18 +89,18 @@ bool MoveValidator::isDestinationOccupiedByPlayer(Board* board, int destRow, int
 
 }
 
-bool MoveValidator::makesCheck(Board* board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack)
+bool MoveValidator::makesCheck(Board& board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack)
 {
 	//we get the piece at the destination and at the source
-	Piece* tempDesPiece = board->getPieceFromArray(destRow, destCol);
-	Piece* srcPiece = board->getPieceFromArray(srcRow, srcCol);
+	Piece* tempDesPiece = board.getPieceFromArray(destRow, destCol);
+	Piece* srcPiece = board.getPieceFromArray(srcRow, srcCol);
 	bool checkHappened = false;
 
 	//update current source piece and array tempereroly
 	srcPiece->setCol(destCol);
 	srcPiece->setRow(destRow);
-	board->pieces[ srcRow ][ srcCol ] = nullptr;
-	board->pieces[ destRow ][ destCol ] = srcPiece;
+	board.pieces[ srcRow ][ srcCol ] = nullptr;
+	board.pieces[ destRow ][ destCol ] = srcPiece;
 
 	//we see if the current player is checked
 	checkHappened = isCheck(board, currentPlayerBlack);
@@ -108,8 +108,8 @@ bool MoveValidator::makesCheck(Board* board, int srcRow, int srcCol, int destRow
 	//we revert the move to the piece and reset the array
 	srcPiece->setCol(srcCol);
 	srcPiece->setRow(srcRow);
-	board->pieces[ srcRow][ srcCol ] = srcPiece;
-	board->pieces[ destRow ][ destCol ] = tempDesPiece;
+	board.pieces[ srcRow][ srcCol ] = srcPiece;
+	board.pieces[ destRow ][ destCol ] = tempDesPiece;
 
 	return checkHappened;
 
@@ -131,9 +131,9 @@ bool MoveValidator::areIndexOutOfBounds(int row, int col)
 	return false;
 }
 
-bool MoveValidator::isPieceMoveInvalid(Board* board, int srcRow, int srcCol, int destRow, int destCol)
+bool MoveValidator::isPieceMoveInvalid(const Board& board, int srcRow, int srcCol, int destRow, int destCol)
 {
-	Piece* piece = board->getPieceFromArray(srcRow, srcCol);
+	Piece* piece = board.getPieceFromArray(srcRow, srcCol);
 
 	return !piece->isPathClear(board, destRow, destCol);
 }
@@ -150,7 +150,7 @@ bool MoveValidator::isSourceEqualDestination(int srcRow, int srcCol, int destRow
 }
 
 
-bool MoveValidator::isCheck(Board* board, bool blackTurn)
+bool MoveValidator::isCheck(const Board& board, bool blackTurn)
 {
 	//we go in lines from the king to see if we reach a rook, queen or a bishop
 	//we go around the king and check if theres a knight
@@ -216,16 +216,16 @@ bool MoveValidator::isCheck(Board* board, bool blackTurn)
 }
 
 
-bool MoveValidator::checkUpAndDown(Board* board, int change, bool blackTurn) 
+bool MoveValidator::checkUpAndDown(const Board& board, int change, bool blackTurn) 
 {
 	int i = 0;
 	Piece* piece = nullptr;
-	Piece* king = board->findKing(blackTurn);
+	Piece* king = board.findKing(blackTurn);
 
 	//we go down and look for rook or queen
 	for (i = king->getRow() + change; i < CHESS_ROW_LEN && i >= 0; i += change)
 	{
-		piece = board->getPieceFromArray(i, king->getCol());
+		piece = board.getPieceFromArray(i, king->getCol());
 
 		//we check if we reached a piece
 		if (piece != nullptr)
@@ -257,16 +257,16 @@ bool MoveValidator::checkUpAndDown(Board* board, int change, bool blackTurn)
 }
 
 
-bool MoveValidator::checkRightAndLeft(Board* board, int change, bool blackTurn) 
+bool MoveValidator::checkRightAndLeft(const Board& board, int change, bool blackTurn) 
 {
 	int i = 0;
 	Piece* piece = nullptr;
-	Piece* king = board->findKing(blackTurn);
+	Piece* king = board.findKing(blackTurn);
 
 	//we go down and look for rook or queen
 	for (i = king->getCol() + change; i < CHESS_COL_LEN && i >= 0; i += change)
 	{
-		piece = board->getPieceFromArray(king->getRow(), i);
+		piece = board.getPieceFromArray(king->getRow(), i);
 
 		//we check if we reached a piece
 		if (piece != nullptr)
@@ -296,19 +296,19 @@ bool MoveValidator::checkRightAndLeft(Board* board, int change, bool blackTurn)
 }
 
 
-bool MoveValidator::checkCross(Board* board, int changeRow, int changeCol, bool blackTurn) 
+bool MoveValidator::checkCross(const Board& board, int changeRow, int changeCol, bool blackTurn) 
 {
 	bool firstStep = true;
 	int i = 0, j = 0;
 	Piece* piece = nullptr;
-	Piece* king = board->findKing(blackTurn);
+	Piece* king = board.findKing(blackTurn);
 
 	//i will be the rows and j will be the cols
 	//we add the change to them and make sure they are still in valid range
 	for (i = king->getRow() + changeRow, j = king->getCol() + changeCol; (i >= 0 && i < CHESS_ROW_LEN) && (j >= 0 && j < CHESS_COL_LEN); i += changeRow, j += changeCol)
 	{
 		//we go to the next place in the array
-		piece = board->getPieceFromArray(i, j);
+		piece = board.getPieceFromArray(i, j);
 
 		//we check if we reached a piece
 		if (piece != nullptr)
@@ -354,7 +354,7 @@ bool MoveValidator::checkCross(Board* board, int changeRow, int changeCol, bool 
 }
 
 
-bool MoveValidator::checkKnight(Board* board, bool blackTurn) 
+bool MoveValidator::checkKnight(const Board& board, bool blackTurn) 
 {
 	//we make an array with all the possible places a kingt can check the king
 	int moves[ POSSIBLE_KNIGHT_MOVES ][ 2 ] =
@@ -371,7 +371,7 @@ bool MoveValidator::checkKnight(Board* board, bool blackTurn)
 
 
 	Piece* piece = nullptr;
-	Piece* king = board->findKing(blackTurn);
+	Piece* king = board.findKing(blackTurn);
 	int i = 0, rowOffset = 0, colOffset = 0;
 
 	//we go through the array and get the index of a posaible knight
@@ -383,7 +383,7 @@ bool MoveValidator::checkKnight(Board* board, bool blackTurn)
 		//we check if the index is in range
 		if ((rowOffset >= 0 && rowOffset < CHESS_ROW_LEN) && (colOffset >= 0 && colOffset < CHESS_COL_LEN))
 		{
-			piece = board->getPieceFromArray(rowOffset, colOffset);
+			piece = board.getPieceFromArray(rowOffset, colOffset);
 
 			//we check if we reached a piece
 			if (piece != nullptr)

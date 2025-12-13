@@ -14,7 +14,7 @@ King::~King()
 }
 
 //checks if there is a piece in the way to dst and the movnent is valid
-bool King::isPathClear(Board* board, int destRow, int destCol) const
+bool King::isPathClear(const Board& board, int destRow, int destCol) const
 {
 	return isMoveValid(destRow, destCol);
 }

@@ -38,7 +38,7 @@ class Piece
 		char getType() const;
 		
 		//checks if there is a piece in the way to dst
-		virtual bool isPathClear(Board* board, int destRow, int destCol) const = 0;
+		virtual bool isPathClear(const Board& board, int destRow, int destCol) const = 0;
 
 		//checks if the piece can move by the rules
 		virtual bool isMoveValid(int destRow, int destCol) const = 0;

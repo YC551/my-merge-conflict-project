@@ -18,24 +18,24 @@ class MoveValidator
 	public:
 		
 		
-		static int validateMove(Board* board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack);
+		static int validateMove(Board& board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack);
 
 	private:
 
 		//return true if the piece that is moved is the correct color - code 2
-		static bool isSourceEmptyOrWrongColor(Board* board, int srcRow, int srcCol, bool currentPlayerBlack);
+		static bool isSourceEmptyOrWrongColor(const Board& board, int srcRow, int srcCol, bool currentPlayerBlack);
 
 		//return true if there is a piece with the same color in the destination - code 3
-		static bool isDestinationOccupiedByPlayer(Board* board, int destRow, int destCol, bool currentPlayerBlack);
+		static bool isDestinationOccupiedByPlayer(const Board& board, int destRow, int destCol, bool currentPlayerBlack);
 
 		//we check if the player causes a check on himself
-		static bool makesCheck(Board* board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack);
+		static bool makesCheck(Board& board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack);
 
 		//checks if any index is out of array
 		static bool areIndexOutOfBounds(int row, int col);
 
 		//check if the path is valid for the piece
-		static bool isPieceMoveInvalid(Board* board, int srcRow, int srcCol, int destRow, int destCol);
+		static bool isPieceMoveInvalid(const Board& board, int srcRow, int srcCol, int destRow, int destCol);
 
 		//we check if the piece moved
 		static bool isSourceEqualDestination(int srcRow, int srcCol, int destRow, int destCol);
@@ -43,18 +43,18 @@ class MoveValidator
 
 
 		//returns true if theres a check on the king that matches blackturn 
-		static bool isCheck(Board* board, bool blackTurn);
+		static bool isCheck(const Board& board, bool blackTurn);
 
 		//we go in straight lines around the king to see if theres a rook or a queen
-		static bool checkUpAndDown(Board* board, int change, bool blackTurn);
-		static bool checkRightAndLeft(Board* board, int change, bool blackTurn);
+		static bool checkUpAndDown(const Board& board, int change, bool blackTurn);
+		static bool checkRightAndLeft(const Board& board, int change, bool blackTurn);
 
 		//we go in a cross around the king to see if theres a bishop or a queen
-		static bool checkCross(Board* board, int changRow, int changCol, bool blackTurn);
+		static bool checkCross(const Board& board, int changRow, int changCol, bool blackTurn);
 
 
 		//we check around the king if there are kinghts
-		static bool checkKnight(Board* board, bool blackTurn);
+		static bool checkKnight(const Board& board, bool blackTurn);
 
 	
 		

@@ -13,7 +13,7 @@ class Rook : public Piece
 		~Rook() override;
 
 		//checks if there is a piece in the way to dst and the movnent is valid
-		bool isPathClear(Board* board, int destRow, int destCol) const override;
+		bool isPathClear(const Board& board, int destRow, int destCol) const override;
 
 
 		//checks if the piece can move by the rules

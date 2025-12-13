@@ -30,9 +30,8 @@ int main()
     //board.changePieceLocation("h8d6");
     board.printBoard();
 
-    std::string updateStr = "a1b1";
-    board.changePieceLocation("a1b1");
-    board.changePieceLocation("b1a1");
+    std::string updateStr = "a1a2";
+    
     board.printBoard();
     std::string srcLocation = updateStr.substr(0, 2); //get first part
     std::string dstLocation = updateStr.substr(2, 2); //get second part
@@ -44,7 +43,7 @@ int main()
     int dstRow = board.getRowFromString(dstLocation);
     int dstCol = board.getColFromString(dstLocation);
     
-    std::cout << "code" << MoveValidator::validateMove(&board, srcRow, srcCol, dstRow, dstCol, true);
+    std::cout << "code" << MoveValidator::validateMove(board, srcRow, srcCol, dstRow, dstCol, true);
   
     return 0;
 }
