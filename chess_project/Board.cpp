@@ -72,7 +72,7 @@ void Board::changePieceLocation(std::string updateStr)
 
 
 
-int Board::getColFromString(std::string location)
+int Board::getColFromString(std::string location) 
 {
 	//turn letters to alphabet index 
 	return location[COL_INDEX] - FIRST_ALPHABET_LETTER;
@@ -127,7 +127,7 @@ void Board::printBoard() const
 }
 
 
-Piece* Board::findKing(bool findBlack)
+Piece* Board::findKing(bool findBlack) const
 {
 	int i = 0, j = 0;
 	Piece* piece = nullptr;

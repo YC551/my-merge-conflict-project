@@ -25,8 +25,8 @@ class Board
 	void changePieceLocation(std::string updateStr);
 
 	//get place on chess board and return col or row
-	static int getColFromString(std::string location);
-	static int getRowFromString(std::string location);
+	static int getColFromString(std::string location) ;
+	static int getRowFromString(std::string location) ;
 
 	
 	//returns pointer to a piece from array
@@ -34,7 +34,7 @@ class Board
 
 	void printBoard() const;
 
-	Piece* findKing(bool findBlack);
+	Piece* findKing(bool findBlack) const;
 
 
 
