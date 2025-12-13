@@ -26,11 +26,11 @@ int main()
 
 
    
-    board.changePieceLocation("a8b1");
+    board.changePieceLocation("a8c1");
     //board.changePieceLocation("h8d6");
     board.printBoard();
 
-    std::string updateStr = "a1a2";
+    std::string updateStr = "a1b2";
     
     board.printBoard();
     std::string srcLocation = updateStr.substr(0, 2); //get first part

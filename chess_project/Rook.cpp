@@ -31,7 +31,7 @@ bool Rook::isMoveValid(int destRow, int destCol) const
 bool Rook::isPathClear(const Board& board, int destRow, int destCol) const
 {
 	int i = 0;
-
+	int change = 0;
 	if (!(isMoveValid(destRow, destCol)))
 	{
 		return false;
@@ -44,68 +44,42 @@ bool Rook::isPathClear(const Board& board, int destRow, int destCol) const
 		//we check if we move up or down
 		if (this->row > destRow)
 		{
-			//we check if there isnt a piece in the path
-			for (i = destRow + 1; i < this->row; i++)// start after destRow, go up to row-1
-			{
-				if (board.getPieceFromArray(i, this->col) != nullptr)
-				{
-					return false;
-				}
-			}
-
-			return true;
+			change = -1;
 		}
-
-		//if we dont move up we go down
 		else
 		{
-			//we check if there isnt a piece in the path
-			for (i = this->row + 1; i < destRow; i++)// start after row, go up to destRow-1
-			{
-				if (board.getPieceFromArray(i, this->col) != nullptr)
-				{
-					return false;
-				}
-			}
-
-			return true;
+			change = 1;
 		}
+		//we check if there isnt a piece in the path
+		for (i = this->row + change; i != destRow; i += change)
+		{
+			if (board.getPieceFromArray(i, this->col) != nullptr)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
-
-	else
+	else if (this->row == destRow)
 	{
-		//we check if we move left or right
 		if (this->col > destCol)
 		{
-			//we check if there isnt a piece in the path
-			for (i = destCol + 1; i < this->col; i++)// start after destCol, go up to col-1
-			{
-				if (board.getPieceFromArray(this->row, i) != nullptr)
-				{
-					return false;
-				}
-			}
-
-			return true;
+			change = -1;
 		}
-
-		//if we dont move right we move left
 		else
 		{
-			//we check if there isnt a piece in the path
-			for (i = this->col + 1; i < destCol; i++)// start after col, go up to destCol-1
-			{
-				if (board.getPieceFromArray(this->row, i) != nullptr)
-				{
-					return false;
-				}
-			}
-
-			return true;
+			change = 1;
 		}
+		//we check if there isnt a piece in the path
+		for (i = this->col + change; i != destCol; i += change)
+		{
+			if (board.getPieceFromArray(this->row,i) != nullptr)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
-
-
 }
 
 
