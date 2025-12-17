@@ -219,6 +219,7 @@ bool MoveValidator::isCheck(const Board& board, bool blackTurn)
 bool MoveValidator::checkUpAndDown(const Board& board, int change, bool blackTurn) 
 {
 	int i = 0;
+	bool firstStep = true;
 	Piece* piece = nullptr;
 	Piece* king = board.findKing(blackTurn);
 
@@ -233,8 +234,9 @@ bool MoveValidator::checkUpAndDown(const Board& board, int change, bool blackTur
 			//we check if the closest piece is a diffrent color
 			if (king->getIs_black() != piece->getIs_black())
 			{
+				
 				//we check if the closest piece is a rook or a queen
-				if (piece->getType() == ROOK_TYPE || piece->getType() == QUEEN_TYPE)
+				if (piece->getType() == ROOK_TYPE || piece->getType() == QUEEN_TYPE || (firstStep && piece->getType() == KING_TYPE))
 				{
 					return true;
 				}
@@ -247,6 +249,7 @@ bool MoveValidator::checkUpAndDown(const Board& board, int change, bool blackTur
 			}
 		}
 
+		firstStep = false;
 
 	}
 
@@ -260,6 +263,7 @@ bool MoveValidator::checkUpAndDown(const Board& board, int change, bool blackTur
 bool MoveValidator::checkRightAndLeft(const Board& board, int change, bool blackTurn) 
 {
 	int i = 0;
+	bool firstStep = true;
 	Piece* piece = nullptr;
 	Piece* king = board.findKing(blackTurn);
 
@@ -275,7 +279,7 @@ bool MoveValidator::checkRightAndLeft(const Board& board, int change, bool black
 			if (king->getIs_black() != piece->getIs_black())
 			{
 				//we check if the closest piece is a rook or a queen
-				if (piece->getType() == ROOK_TYPE || piece->getType() == QUEEN_TYPE)
+				if (piece->getType() == ROOK_TYPE || piece->getType() == QUEEN_TYPE || (firstStep && piece->getType() == KING_TYPE))
 				{
 					return true;
 				}
@@ -288,6 +292,7 @@ bool MoveValidator::checkRightAndLeft(const Board& board, int change, bool black
 			}
 		}
 
+		firstStep = false;
 
 	}
 
@@ -320,18 +325,24 @@ bool MoveValidator::checkCross(const Board& board, int changeRow, int changeCol,
 				if (firstStep)
 				{
 					firstStep = false;
-					//we check if the piece is a pawn
+					//we check if the piece is a pawn or a king
 					if (piece->getType() == PAWN_TYPE)
 					{
+						
 						//we check which way the pawn is going
 						if ((king->getIs_black() && changeRow == -1) || (!(king->getIs_black()) && changeRow == 1))
 						{
 							return true;
 						}
 					}
-				}
 
-				if (piece->getType() == QUEEN_TYPE || piece->getType() == BISHOP_TYPE)
+					if (piece->getType() ==  KING_TYPE)
+					{
+						return true;
+					}
+				}  
+
+				if (piece->getType() == QUEEN_TYPE || piece->getType() == BISHOP_TYPE )
 				{
 					return true;
 				}

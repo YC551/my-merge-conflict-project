@@ -4,7 +4,7 @@
 #include "King.h"
 #include "MoveValidator.h"
 
-int main()
+int mafin()
 {
     Board board;
 
