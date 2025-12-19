@@ -38,16 +38,8 @@ Board::~Board()
 
 void Board::changePieceLocation(std::string updateStr)
 {
-
-	std::string srcLocation = updateStr.substr(0, 2); //get first part
-	std::string dstLocation = updateStr.substr(2, 2); //get second part
-
-	//we get the src and destination for the array
-	int srcRow = getRowFromString(srcLocation);
-	int srcCol = getColFromString(srcLocation);
-
-	int dstRow = getRowFromString(dstLocation);
-	int dstCol = getColFromString(dstLocation);
+	int srcRow = 0, srcCol = 0, dstRow = 0, dstCol = 0;
+	updateSrcDstFromString(updateStr, srcRow, srcCol, dstRow, dstCol);
 
 	//we save the piece
 	Piece* piece = this->pieces[srcRow][srcCol];
@@ -151,5 +143,18 @@ Piece* Board::findKing(bool findBlack) const
 		}
 	}
 
+}
+
+void Board::updateSrcDstFromString(std::string updateStr, int& srcRow, int& srcCol, int& dstRow, int& dstCol)
+{
+	std::string srcLocation = updateStr.substr(0, 2); //get first part
+	std::string dstLocation = updateStr.substr(2, 2); //get second part
+
+	//we get the src and destination for the array
+	srcRow = getRowFromString(srcLocation);
+	srcCol = getColFromString(srcLocation);
+
+	dstRow = getRowFromString(dstLocation);
+	dstCol = getColFromString(dstLocation);
 }
 

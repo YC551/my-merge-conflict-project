@@ -56,45 +56,35 @@ void main()
 	// msgToGraphics should contain the board string accord the protocol
 	// YOUR CODE
 
-	strcpy_s(msgToGraphics, "r###k##r################################################R###K##R0"); // just example...
+	strcpy_s(msgToGraphics, "r###k##r################################################R###K##R0"); 
 	
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string
 
 	// get message from graphics
 	string msgFromGraphics = p.getMessageFromGraphics();
 
-
-
 	//we make the board
 	Board board;
 
 
-	// white pices
-	board.pieces[0][0] = new Rook(0, 0, true);  // a8 - white rook
-	board.pieces[0][7] = new Rook(0, 7, true);  // h8 - white rook
-	board.pieces[0][4] = new King(0, 4, true);  // d8 - white king
-
-
-
 	// black pices
-	board.pieces[7][0] = new Rook(7, 0, false);   // a1 - black rook
-	board.pieces[7][7] = new Rook(7, 7, false);   // h1 - black rook
-	board.pieces[7][4] = new King(7, 4, false);   // d1 - black king
+	board.pieces[0][0] = new Rook(0, 0, true);  // a8 - black rook
+	board.pieces[0][7] = new Rook(0, 7, true);  // h8 - black rook
+	board.pieces[0][4] = new King(0, 4, true);  // d8 - black king
+
+
+
+	// white pices
+	board.pieces[7][0] = new Rook(7, 0, false);   // a1 - white rook
+	board.pieces[7][7] = new Rook(7, 7, false);   // h1 - white rook
+	board.pieces[7][4] = new King(7, 4, false);   // d1 - white king
 
 	while (msgFromGraphics != "quit")
 	{
-		
-		srcLocation = msgFromGraphics.substr(0, 2); //get first part
-		dstLocation = msgFromGraphics.substr(2, 2); //get second part
+		//update Src param  and Dst param From String
+		board.updateSrcDstFromString(msgFromGraphics, srcRow, srcCol, dstRow, dstCol);
 
-		//we get the src and destination for the array
-		srcRow = board.getRowFromString(srcLocation);
-		srcCol = board.getColFromString(srcLocation);
-
-		dstRow = board.getRowFromString(dstLocation);
-		dstCol = board.getColFromString(dstLocation);
-
-
+		//get code to return the front
 		code = MoveValidator::validateMove(board, srcRow, srcCol, dstRow, dstCol, isBlackTurn);
 		
 		//we check if a valid turn was made and if not we dont change anything
@@ -106,15 +96,9 @@ void main()
 			board.changePieceLocation(msgFromGraphics);
 		}
 
-		std::cout << code << std::endl;
-		
-
-		
 		msgToGraphics[0] = (char)(code + '0');
 		msgToGraphics[1] = 0;
 		
-
-
 		// return result to graphics		
 		p.sendMessageToGraphics(msgToGraphics);   
 

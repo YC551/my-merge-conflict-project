@@ -36,6 +36,10 @@ class Board
 
 	Piece* findKing(bool findBlack) const;
 
+	//func get place on board and update the src dst location
+	void updateSrcDstFromString(std::string updateStr, int& srcRow, int& srcCol, int& dstRow, int& dstCol);
+
+
 
 
 };

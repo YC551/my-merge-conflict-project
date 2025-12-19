@@ -223,7 +223,7 @@ bool MoveValidator::checkUpAndDown(const Board& board, int change, bool blackTur
 	Piece* piece = nullptr;
 	Piece* king = board.findKing(blackTurn);
 
-	//we go down and look for rook or queen
+	//we go down and look for rook or queen or king
 	for (i = king->getRow() + change; i < CHESS_ROW_LEN && i >= 0; i += change)
 	{
 		piece = board.getPieceFromArray(i, king->getCol());
@@ -242,11 +242,9 @@ bool MoveValidator::checkUpAndDown(const Board& board, int change, bool blackTur
 				}
 			}
 
-			//if the closest piece is the same type we stop the check
-			else
-			{
-				return false;
-			}
+			//if the closest piece is the same type we stop the check or is not a treat to the king 
+			return false;
+			
 		}
 
 		firstStep = false;
@@ -285,11 +283,8 @@ bool MoveValidator::checkRightAndLeft(const Board& board, int change, bool black
 				}
 			}
 
-			//if the closest piece is the same type we stop the check
-			else
-			{
-				return false;
-			}
+			//if the closest piece is the same type we stop the check or is not a treat to the king 
+			return false;
 		}
 
 		firstStep = false;
@@ -324,7 +319,6 @@ bool MoveValidator::checkCross(const Board& board, int changeRow, int changeCol,
 				//we check if we are on the first loop
 				if (firstStep)
 				{
-					firstStep = false;
 					//we check if the piece is a pawn or a king
 					if (piece->getType() == PAWN_TYPE)
 					{
@@ -346,16 +340,14 @@ bool MoveValidator::checkCross(const Board& board, int changeRow, int changeCol,
 				{
 					return true;
 				}
-
 			}
 
-			else
-			{
-				return false;
-			}
+			//if the closest piece is the same type we stop the check or is not a treat to the king 
+			return false;
 
 
 		}
+		firstStep = false;
 
 
 	}
@@ -404,6 +396,7 @@ bool MoveValidator::checkKnight(const Board& board, bool blackTurn)
 				{
 					return true;
 				}
+
 			}
 		}
 	}
