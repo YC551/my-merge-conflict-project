@@ -7,6 +7,7 @@ in order to read and write information from and to the Backend
 #include "Board.h"
 #include "Rook.h"
 #include "King.h"
+#include "Bishop.h"
 #include "MoveValidator.h"
 #include "Pipe.h"
 #include <iostream>
@@ -15,6 +16,8 @@ in order to read and write information from and to the Backend
 #include <string.h>
 #include <thread>
 #include <chrono>
+
+#define BOARD_STR "rnbqkbnrpppppppp################################PPPPPPPPRNBQKBNR0"
 
 using std::cout;
 using std::endl;
@@ -56,7 +59,7 @@ void main()
 	// msgToGraphics should contain the board string accord the protocol
 	// YOUR CODE
 
-	strcpy_s(msgToGraphics, "r###k##r################################################R###K##R0"); 
+	strcpy_s(msgToGraphics, "r#b#kb#r################################################R#B#KB#R0");
 	
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string
 
@@ -71,6 +74,8 @@ void main()
 	board.pieces[0][0] = new Rook(0, 0, true);  // a8 - black rook
 	board.pieces[0][7] = new Rook(0, 7, true);  // h8 - black rook
 	board.pieces[0][4] = new King(0, 4, true);  // d8 - black king
+	board.pieces[0][2] = new Bishop(0, 2, true); // c8 - black bishop
+	board.pieces[0][5] = new Bishop(0, 5, true); // f8 - black bishop
 
 
 
@@ -78,6 +83,8 @@ void main()
 	board.pieces[7][0] = new Rook(7, 0, false);   // a1 - white rook
 	board.pieces[7][7] = new Rook(7, 7, false);   // h1 - white rook
 	board.pieces[7][4] = new King(7, 4, false);   // d1 - white king
+	board.pieces[7][2] = new Bishop(7, 2, false); // c1 - white bishop
+	board.pieces[7][5] = new Bishop(7, 5, false); // f1 - white bishop
 
 	while (msgFromGraphics != "quit")
 	{
