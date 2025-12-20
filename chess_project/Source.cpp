@@ -8,6 +8,7 @@ in order to read and write information from and to the Backend
 #include "Rook.h"
 #include "King.h"
 #include "Bishop.h"
+#include "Queen.h"
 #include "MoveValidator.h"
 #include "Pipe.h"
 #include <iostream>
@@ -59,7 +60,7 @@ void main()
 	// msgToGraphics should contain the board string accord the protocol
 	// YOUR CODE
 
-	strcpy_s(msgToGraphics, "r#b#kb#r################################################R#B#KB#R0");
+	strcpy_s(msgToGraphics, "r#bqkb#r################################################R#BQKB#R0");
 	
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string
 
@@ -76,6 +77,7 @@ void main()
 	board.pieces[0][4] = new King(0, 4, true);  // d8 - black king
 	board.pieces[0][2] = new Bishop(0, 2, true); // c8 - black bishop
 	board.pieces[0][5] = new Bishop(0, 5, true); // f8 - black bishop
+	board.pieces[0][3] = new Queen(0, 3, true);   // d8 - black queen
 
 
 
@@ -85,6 +87,7 @@ void main()
 	board.pieces[7][4] = new King(7, 4, false);   // d1 - white king
 	board.pieces[7][2] = new Bishop(7, 2, false); // c1 - white bishop
 	board.pieces[7][5] = new Bishop(7, 5, false); // f1 - white bishop
+	board.pieces[7][3] = new Queen(7, 3, false);  // d1 - white queen
 
 	while (msgFromGraphics != "quit")
 	{
