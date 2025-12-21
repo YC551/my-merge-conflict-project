@@ -10,6 +10,7 @@ in order to read and write information from and to the Backend
 #include "King.h"
 #include "Bishop.h"
 #include "Queen.h"
+#include "Pawn.h"
 #include "MoveValidator.h"
 #include "Pipe.h"
 #include <iostream>
@@ -65,7 +66,7 @@ void main()
 	// msgToGraphics should contain the board string accord the protocol
 	// YOUR CODE
 
-	strcpy_s(msgToGraphics, "rnbqkbnr################################################RNBQKBNR0");
+	strcpy_s(msgToGraphics, BOARD_STR);
 	
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string
 
@@ -86,6 +87,12 @@ void main()
 	board.pieces[R8][B] = new Knight(R8, B, true);  // b8
 	board.pieces[R8][G] = new Knight(R8, G, true);  // g8
 
+	// black pawns
+	for (int col = A; col <= H; col++)
+	{
+		board.pieces[R7][col] = new Pawn(R7, col, true);
+	}
+
 
 	// white pieces
 	board.pieces[R1][A] = new Rook(R1, A, false); // a1
@@ -96,6 +103,13 @@ void main()
 	board.pieces[R1][D] = new Queen(R1, D, false); // d1
 	board.pieces[R1][B] = new Knight(R1, B, false); // b1
 	board.pieces[R1][G] = new Knight(R1, G, false); // g1
+
+	// white pawns
+	for (int col = A; col <= H; col++)
+	{
+		board.pieces[R2][col] = new Pawn(R2, col, false);
+	}
+
 
 	while (msgFromGraphics != "quit")
 	{

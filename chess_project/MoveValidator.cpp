@@ -324,7 +324,7 @@ bool MoveValidator::checkCross(const Board& board, int changeRow, int changeCol,
 					{
 						
 						//we check which way the pawn is going
-						if ((king->getIs_black() && changeRow == -1) || (!(king->getIs_black()) && changeRow == 1))
+						if ((king->getIs_black() && changeRow == 1) || (!(king->getIs_black()) && changeRow == -1))
 						{
 							return true;
 						}
