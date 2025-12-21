@@ -6,6 +6,7 @@ in order to read and write information from and to the Backend
 #include <iostream>
 #include "Board.h"
 #include "Rook.h"
+#include "Knight.h"
 #include "King.h"
 #include "Bishop.h"
 #include "Queen.h"
@@ -23,6 +24,10 @@ in order to read and write information from and to the Backend
 using std::cout;
 using std::endl;
 using std::string;
+
+enum Column { A, B, C, D, E, F, G, H };
+enum Row { R8, R7, R6, R5, R4, R3, R2, R1 };
+
 
 
 void main()
@@ -60,7 +65,7 @@ void main()
 	// msgToGraphics should contain the board string accord the protocol
 	// YOUR CODE
 
-	strcpy_s(msgToGraphics, "r#bqkb#r################################################R#BQKB#R0");
+	strcpy_s(msgToGraphics, "rnbqkbnr################################################RNBQKBNR0");
 	
 	p.sendMessageToGraphics(msgToGraphics);   // send the board string
 
@@ -71,23 +76,26 @@ void main()
 	Board board;
 
 
-	// black pices
-	board.pieces[0][0] = new Rook(0, 0, true);  // a8 - black rook
-	board.pieces[0][7] = new Rook(0, 7, true);  // h8 - black rook
-	board.pieces[0][4] = new King(0, 4, true);  // d8 - black king
-	board.pieces[0][2] = new Bishop(0, 2, true); // c8 - black bishop
-	board.pieces[0][5] = new Bishop(0, 5, true); // f8 - black bishop
-	board.pieces[0][3] = new Queen(0, 3, true);   // d8 - black queen
+	// black pieces
+	board.pieces[R8][A] = new Rook(R8, A, true);  // a8
+	board.pieces[R8][H] = new Rook(R8, H, true);  // h8
+	board.pieces[R8][E] = new King(R8, E, true);  // e8
+	board.pieces[R8][C] = new Bishop(R8, C, true);  // c8
+	board.pieces[R8][F] = new Bishop(R8, F, true);  // f8
+	board.pieces[R8][D] = new Queen(R8, D, true);  // d8
+	board.pieces[R8][B] = new Knight(R8, B, true);  // b8
+	board.pieces[R8][G] = new Knight(R8, G, true);  // g8
 
 
-
-	// white pices
-	board.pieces[7][0] = new Rook(7, 0, false);   // a1 - white rook
-	board.pieces[7][7] = new Rook(7, 7, false);   // h1 - white rook
-	board.pieces[7][4] = new King(7, 4, false);   // d1 - white king
-	board.pieces[7][2] = new Bishop(7, 2, false); // c1 - white bishop
-	board.pieces[7][5] = new Bishop(7, 5, false); // f1 - white bishop
-	board.pieces[7][3] = new Queen(7, 3, false);  // d1 - white queen
+	// white pieces
+	board.pieces[R1][A] = new Rook(R1, A, false); // a1
+	board.pieces[R1][H] = new Rook(R1, H, false); // h1
+	board.pieces[R1][E] = new King(R1, E, false); // e1
+	board.pieces[R1][C] = new Bishop(R1, C, false); // c1
+	board.pieces[R1][F] = new Bishop(R1, F, false); // f1
+	board.pieces[R1][D] = new Queen(R1, D, false); // d1
+	board.pieces[R1][B] = new Knight(R1, B, false); // b1
+	board.pieces[R1][G] = new Knight(R1, G, false); // g1
 
 	while (msgFromGraphics != "quit")
 	{
