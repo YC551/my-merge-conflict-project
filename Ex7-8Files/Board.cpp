@@ -143,6 +143,9 @@ Piece* Board::findKing(bool findBlack) const
 		}
 	}
 
+	//we return null if we dont find a king
+	return nullptr;
+
 }
 
 void Board::updateSrcDstFromString(std::string updateStr, int& srcRow, int& srcCol, int& dstRow, int& dstCol)

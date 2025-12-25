@@ -3,6 +3,8 @@ This file servers as an example of how to use Pipe.h file.
 It is recommended to use the following code in your project, 
 in order to read and write information from and to the Backend
 */
+
+#define _CRT_SECURE_NO_WRNINGS
 #include <iostream>
 #include "Board.h"
 #include "Rook.h"
@@ -19,6 +21,7 @@ in order to read and write information from and to the Backend
 #include <string.h>
 #include <thread>
 #include <chrono>
+#include <cstring>
 
 #define BOARD_STR "rnbqkbnrpppppppp################################PPPPPPPPRNBQKBNR0"
 
@@ -31,7 +34,7 @@ enum Row { R8, R7, R6, R5, R4, R3, R2, R1 };
 
 
 
-void main()
+int main()
 {
 	srand(time_t(NULL));
 	bool isBlackTurn = false;
@@ -57,7 +60,7 @@ void main()
 		else 
 		{
 			p.close();
-			return;
+			return 0;
 		}
 	}
 	
@@ -66,9 +69,11 @@ void main()
 	// msgToGraphics should contain the board string accord the protocol
 	// YOUR CODE
 
-	strcpy_s(msgToGraphics, BOARD_STR);
+	strcpy(msgToGraphics, BOARD_STR);
 	
-	p.sendMessageToGraphics(msgToGraphics);   // send the board string
+	#ifdef WIN32
+		p.sendMessageToGraphics(msgToGraphics);   // send the board string
+	#endif
 
 	// get message from graphics
 	string msgFromGraphics = p.getMessageFromGraphics();
@@ -140,4 +145,7 @@ void main()
 	}
 
 	p.close();
+
+
+	return 0;
 }

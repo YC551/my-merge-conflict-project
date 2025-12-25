@@ -80,6 +80,9 @@ bool Rook::isPathClear(const Board& board, int destRow, int destCol) const
 		}
 		return true;
 	}
+
+
+	return false;
 }
 
 

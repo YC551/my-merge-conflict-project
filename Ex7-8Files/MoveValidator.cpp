@@ -50,7 +50,6 @@ int MoveValidator::validateMove(Board& board, int srcRow, int srcCol, int destRo
 
 
 }
-
 bool MoveValidator::isSourceEmptyOrWrongColor(const Board& board, int srcRow, int srcCol, bool currentPlayerBlack)
 {
 	Piece* piece = board.getPieceFromArray(srcRow, srcCol);
@@ -66,7 +65,6 @@ bool MoveValidator::isSourceEmptyOrWrongColor(const Board& board, int srcRow, in
 	//if the piece we want to move has the same color we return true
 	return true;
 }
-
 bool MoveValidator::isDestinationOccupiedByPlayer(const Board& board, int destRow, int destCol, bool currentPlayerBlack)
 {
 	Piece* piece = board.getPieceFromArray(destRow, destCol);
@@ -88,7 +86,6 @@ bool MoveValidator::isDestinationOccupiedByPlayer(const Board& board, int destRo
 
 
 }
-
 bool MoveValidator::makesCheck(Board& board, int srcRow, int srcCol, int destRow, int destCol, bool currentPlayerBlack)
 {
 	//we get the piece at the destination and at the source
@@ -148,8 +145,6 @@ bool MoveValidator::isSourceEqualDestination(int srcRow, int srcCol, int destRow
 	return false;
 
 }
-
-
 bool MoveValidator::isCheck(const Board& board, bool blackTurn)
 {
 	//we go in lines from the king to see if we reach a rook, queen or a bishop
@@ -404,7 +399,4 @@ bool MoveValidator::checkKnight(const Board& board, bool blackTurn)
 
 
 	return false;
-	
-
-
 }
