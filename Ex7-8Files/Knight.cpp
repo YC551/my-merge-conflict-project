@@ -14,6 +14,7 @@ Knight::~Knight()
 
 bool Knight::isPathClear(const Board& board, int destRow, int destCol) const
 {
+	//the knight can go above anything so we dont need to check if the path is clear
 	return isMoveValid(destRow, destCol);
 }
 

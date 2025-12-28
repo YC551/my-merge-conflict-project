@@ -7,7 +7,7 @@ Board::Board()
 	{
 		for (int c = 0; c < CHESS_COL_LEN; c++)
 		{
-			pieces[r][c] = nullptr;
+			pieces[ r ][ c ] = nullptr;
 		}
 	}
 }
@@ -23,13 +23,13 @@ Board::~Board()
 		for (j = 0; j < CHESS_COL_LEN; j++)
 		{
 			//we only free the place if there is a piece
-			if (this->pieces[i][j] != nullptr)
+			if (this->pieces[ i ][ j ] != nullptr)
 			{
-				delete this->pieces[i][j];
+				delete this->pieces[ i ][ j ];
 			}
 
 			//we make the place on the board empty
-			this->pieces[i][j] = nullptr;
+			this->pieces[ i ][ j ] = nullptr;
 		}
 	}
 
@@ -42,18 +42,18 @@ void Board::changePieceLocation(std::string updateStr)
 	updateSrcDstFromString(updateStr, srcRow, srcCol, dstRow, dstCol);
 
 	//we save the piece
-	Piece* piece = this->pieces[srcRow][srcCol];
+	Piece* piece = this->pieces[ srcRow ][ srcCol ];
 
 	//if theres a variable at the destination we need to free it
-	if (this->pieces[dstRow][dstCol] != nullptr)
+	if (this->pieces[ dstRow ][ dstCol ] != nullptr)
 	{
-		delete this->pieces[dstRow][dstCol];
+		delete this->pieces[ dstRow ][ dstCol ];
 	}
 
 
 	//we update the array
-	this->pieces[dstRow][dstCol] = piece;
-	this->pieces[srcRow][srcCol] = nullptr;
+	this->pieces[ dstRow ][ dstCol ] = piece;
+	this->pieces[ srcRow ][ srcCol ] = nullptr;
 
 	piece->setCol(dstCol);
 	piece->setRow(dstRow);
@@ -67,55 +67,18 @@ void Board::changePieceLocation(std::string updateStr)
 int Board::getColFromString(std::string location) 
 {
 	//turn letters to alphabet index 
-	return location[COL_INDEX] - FIRST_ALPHABET_LETTER;
+	return location[ COL_INDEX ] - FIRST_ALPHABET_LETTER;
 }
 
 int Board::getRowFromString(std::string location)
 {
 	//turns '8' to 0, '7' to 1
-	return CHESS_COL_LEN - (location[ROW_INDEX] - ZERO_CHAR);
+	return CHESS_COL_LEN - (location[ ROW_INDEX ] - ZERO_CHAR);
 }
 
 Piece* Board::getPieceFromArray(int row, int col) const
 {
-	return this->pieces[row][col];
-}
-
-void Board::printBoard() const
-{
-	std::cout << "  a b c d e f g h\n";
-
-	for (int row = 0; row < CHESS_ROW_LEN; row++)
-	{
-		std::cout << CHESS_ROW_LEN - row << " ";
-
-		for (int col = 0; col < CHESS_COL_LEN; col++)
-		{
-			Piece* piece = pieces[row][col];
-			char symbol;
-
-			if (piece != nullptr)
-			{
-				symbol = piece->getType();
-
-				//if black print lower
-				if (piece->getIs_black())
-				{
-					symbol = std::tolower(symbol);
-				}
-			}
-			else
-			{
-				symbol = '#';
-			}
-
-			std::cout << symbol << " ";
-		}
-
-		std::cout << CHESS_ROW_LEN - row << "\n";
-	}
-
-	std::cout << "  a b c d e f g h\n";
+	return this->pieces[ row ][ col ];
 }
 
 

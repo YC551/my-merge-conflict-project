@@ -67,7 +67,7 @@ int main()
 
 	char msgToGraphics[1024];
 	// msgToGraphics should contain the board string accord the protocol
-	// YOUR CODE
+
 
 	strcpy(msgToGraphics, BOARD_STR);
 	

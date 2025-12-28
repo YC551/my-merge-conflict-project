@@ -2,6 +2,11 @@
 
 #include "Piece.h"
 #include "Board.h"
+#define MOVE_UP 1
+#define MOVE_DOWN -1
+#define MOVE_LEFT -1
+#define MOVE_RIGHT 1
+
 
 
 

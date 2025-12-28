@@ -32,7 +32,6 @@ class Board
 	//returns pointer to a piece from array
 	Piece* getPieceFromArray(int row, int col) const;
 
-	void printBoard() const;
 
 	Piece* findKing(bool findBlack) const;
 

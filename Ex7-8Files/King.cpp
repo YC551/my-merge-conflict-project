@@ -29,12 +29,7 @@ bool King::isMoveValid(int destRow, int destCol) const
 	int dCol = destCol - this->col;
 
 	//the king can only move 1 place in every direction so we check the diffrence
-	if ((abs(dRow) <= 1) && (abs(dCol) <= 1))
-	{
-		return true;
-	}
-
-	return false;
+	return (abs(dRow) <= 1) && (abs(dCol) <= 1);
 
 	
 }

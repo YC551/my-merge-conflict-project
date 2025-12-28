@@ -29,7 +29,7 @@ bool Pawn::isPathClear(const Board& board, int destRow, int destCol) const
 		return false;
 	}
 	
-	//if the pawn goes forward make sure destination is clear
+	//if the pawn goes forward make sure destination is clear because pawns cant eat straight
 	if (this->col == destCol)
 	{
 		
@@ -82,6 +82,7 @@ bool Pawn::isMoveValid(int destRow, int destCol) const
 		if (difRow == MAX_ROW_CHANGE)
 		{
 			//we check if the pawn can move 2 places
+			//we check if the pawns are at starting location
 			if (this->is_black)
 			{
 				if (this->row != BLACK_FIRST_ROW)
@@ -104,20 +105,7 @@ bool Pawn::isMoveValid(int destRow, int destCol) const
 	}
 	
 
-	//we check if the pawn goes diagnoly
-	if ((difCol == SHORT_MOVE_FORWARD) && difRow == MIN_ROW_CHANGE)
-	{
-		return true;
-	}
-	
-
-
-	return false;
-
-	
-	
-
-	
-
+	//we check if the pawn goes diagnoly the right amount
+	return (difCol == SHORT_MOVE_FORWARD) && (difRow == MIN_ROW_CHANGE);
 
 }

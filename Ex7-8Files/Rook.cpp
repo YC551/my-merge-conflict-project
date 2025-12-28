@@ -17,12 +17,7 @@ Rook::~Rook()
 bool Rook::isMoveValid(int destRow, int destCol) const
 {
 	//the rook moves in a straight line so only row or only col changes
-	if ((this->col == destCol) || (this->row == destRow))
-	{
-		return true;
-	}
-
-	return false;
+	return (this->col == destCol) || (this->row == destRow);
 
 }
 
@@ -44,11 +39,11 @@ bool Rook::isPathClear(const Board& board, int destRow, int destCol) const
 		//we check if we move up or down
 		if (this->row > destRow)
 		{
-			change = -1;
+			change = MOVE_DOWN;
 		}
 		else
 		{
-			change = 1;
+			change = MOVE_UP;
 		}
 		//we check if there isnt a piece in the path
 		for (i = this->row + change; i != destRow; i += change)
@@ -64,11 +59,11 @@ bool Rook::isPathClear(const Board& board, int destRow, int destCol) const
 	{
 		if (this->col > destCol)
 		{
-			change = -1;
+			change = MOVE_LEFT;
 		}
 		else
 		{
-			change = 1;
+			change = MOVE_RIGHT;
 		}
 		//we check if there isnt a piece in the path
 		for (i = this->col + change; i != destCol; i += change)

@@ -18,17 +18,13 @@ bool Queen::isPathClear(const Board& board, int destRow, int destCol) const
 	Bishop bishop(this->row, this->col, is_black);
 
 	//we check if the move is vallid for rook or a bishop
-	if (rook.isPathClear(board, destRow, destCol) || bishop.isPathClear(board, destRow, destCol))
-	{
-		return true;
-	}
-
-	return false;
+	return rook.isPathClear(board, destRow, destCol) || bishop.isPathClear(board, destRow, destCol);
 
 
 }
 bool Queen::isMoveValid(int destRow, int destCol) const
 {
+	//we use rook and bishop isPathClear that also have isMoveValid so we dont need to check again for queen
 	return false;
 }
-//sigma boy
+

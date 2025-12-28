@@ -11,6 +11,12 @@
 #define ERROR_5 5
 #define ERROR_6 6 
 #define ERROR_7 7
+#define CHECK_FROM_BEHIND -1
+#define CHECK_FROM_FRONT 1
+#define MOVE_UP 1
+#define MOVE_DOWN -1
+#define MOVE_LEFT -1
+#define MOVE_RIGHT 1
 
 class MoveValidator
 {

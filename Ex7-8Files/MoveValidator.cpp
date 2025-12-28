@@ -65,6 +65,8 @@ bool MoveValidator::isSourceEmptyOrWrongColor(const Board& board, int srcRow, in
 	//if the piece we want to move has the same color we return true
 	return true;
 }
+
+
 bool MoveValidator::isDestinationOccupiedByPlayer(const Board& board, int destRow, int destCol, bool currentPlayerBlack)
 {
 	Piece* piece = board.getPieceFromArray(destRow, destCol);
@@ -114,6 +116,7 @@ bool MoveValidator::makesCheck(Board& board, int srcRow, int srcCol, int destRow
 
 bool MoveValidator::areIndexOutOfBounds(int row, int col)
 {
+	//check if row and col are in bounds
 	if (row < 0 || row >= CHESS_ROW_LEN)
 	{
 		return true;
@@ -130,6 +133,7 @@ bool MoveValidator::areIndexOutOfBounds(int row, int col)
 
 bool MoveValidator::isPieceMoveInvalid(const Board& board, int srcRow, int srcCol, int destRow, int destCol)
 {
+	//we get a piece from the board and check if the move is valid
 	Piece* piece = board.getPieceFromArray(srcRow, srcCol);
 
 	return !piece->isPathClear(board, destRow, destCol);
@@ -137,69 +141,43 @@ bool MoveValidator::isPieceMoveInvalid(const Board& board, int srcRow, int srcCo
 
 bool MoveValidator::isSourceEqualDestination(int srcRow, int srcCol, int destRow, int destCol)
 {
-	if (destRow == srcRow && destCol == srcCol)
-	{
-		return true;
-	}
-
-	return false;
+	return (destRow == srcRow && destCol == srcCol);
 
 }
+
 bool MoveValidator::isCheck(const Board& board, bool blackTurn)
 {
 	//we go in lines from the king to see if we reach a rook, queen or a bishop
 	//we go around the king and check if theres a knight
 
-	//we check up 
-	if (checkUpAndDown(board, GO_UP, blackTurn))
-	{
-		return true; //true if theres a check
-	}
-
-	//we check down
-	if (checkUpAndDown(board, GO_DOWN, blackTurn))
+	//we check up and down
+	if (checkUpAndDown(board, GO_UP, blackTurn) || (checkUpAndDown(board, GO_DOWN, blackTurn)))
 	{
 		return true; //true if theres a check
 	}
 
 
-	//we check right
-	if (checkRightAndLeft(board, RIGHT, blackTurn))
-	{
-		return true; //true if theres a check
-	}
-
-	//we check left
-	if (checkRightAndLeft(board, LEFT, blackTurn))
+	//we check right and check left
+	if (checkRightAndLeft(board, RIGHT, blackTurn) || (checkRightAndLeft(board, LEFT, blackTurn)))
 	{
 		return true; //true if theres a check
 	}
 
 
-	//we check up right
-	if (checkCross(board, -1, 1, blackTurn))
-	{
-		return true;
-	}
-
-	//we checl up left
-	if (checkCross(board, -1, -1, blackTurn))
-	{
-		return true;
-	}
-
-	//we check down right
-	if (checkCross(board, 1, 1, blackTurn))
+	//we check down right and left
+	if (checkCross(board, MOVE_DOWN, MOVE_RIGHT, blackTurn) || (checkCross(board, MOVE_DOWN, MOVE_LEFT, blackTurn)))
 	{
 		return true;
 	}
 
 
-	//we check down left
-	if (checkCross(board, 1, -1, blackTurn))
+	//we check up right and left
+	if (checkCross(board, MOVE_UP, MOVE_RIGHT, blackTurn) || (checkCross(board, MOVE_UP, MOVE_DOWN, blackTurn)))
 	{
 		return true;
 	}
+
+
 
 	if (checkKnight(board, blackTurn))
 	{
@@ -300,7 +278,7 @@ bool MoveValidator::checkCross(const Board& board, int changeRow, int changeCol,
 
 	//i will be the rows and j will be the cols
 	//we add the change to them and make sure they are still in valid range
-	for (i = king->getRow() + changeRow, j = king->getCol() + changeCol; (i >= 0 && i < CHESS_ROW_LEN) && (j >= 0 && j < CHESS_COL_LEN); i += changeRow, j += changeCol)
+	for (i = king->getRow() + changeRow, j = king->getCol() + changeCol; !areIndexOutOfBounds(i, j); i += changeRow, j += changeCol)
 	{
 		//we go to the next place in the array
 		piece = board.getPieceFromArray(i, j);
@@ -319,7 +297,7 @@ bool MoveValidator::checkCross(const Board& board, int changeRow, int changeCol,
 					{
 						
 						//we check which way the pawn is going
-						if ((king->getIs_black() && changeRow == 1) || (!(king->getIs_black()) && changeRow == -1))
+						if ((king->getIs_black() && changeRow == CHECK_FROM_FRONT) || (!(king->getIs_black()) && changeRow == CHECK_FROM_BEHIND))
 						{
 							return true;
 						}
@@ -379,7 +357,7 @@ bool MoveValidator::checkKnight(const Board& board, bool blackTurn)
 		colOffset = king->getCol() + moves[ i ] [ 1 ];
 
 		//we check if the index is in range
-		if ((rowOffset >= 0 && rowOffset < CHESS_ROW_LEN) && (colOffset >= 0 && colOffset < CHESS_COL_LEN))
+		if (!areIndexOutOfBounds(rowOffset, colOffset))
 		{
 			piece = board.getPieceFromArray(rowOffset, colOffset);
 

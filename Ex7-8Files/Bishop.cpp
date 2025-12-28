@@ -23,22 +23,22 @@ bool Bishop::isPathClear(const Board& board, int destRow, int destCol) const
 	//we check if the offsets are positive or negetive
 	if (destRow > this->row)
 	{
-		rowOff = 1;
+		rowOff = MOVE_UP;
 	}
 
 	else
 	{
-		rowOff = -1;
+		rowOff = MOVE_DOWN;
 	}
 
 	if (destCol > this->col)
 	{
-		colOff = 1;
+		colOff = MOVE_RIGHT;
 	}
 
 	else
 	{
-		colOff = -1;
+		colOff = MOVE_LEFT;
 	}
 
 	
@@ -66,12 +66,7 @@ bool Bishop::isMoveValid(int destRow, int destCol) const
 	difRow = abs(abs(this->row) - abs(destRow));
 
 	//we check if the diffrence is the  same
-	if (difRow == difCol)
-	{
-		return true;
-	}
-
-	return false;
+	return (difRow == difCol);
 }
 
 
